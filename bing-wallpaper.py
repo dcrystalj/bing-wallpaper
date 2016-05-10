@@ -13,23 +13,8 @@ import os
 
 #Variables:
 idx = '0' #defines the day of the picture: 0 = today, 1 = yesterday, ... 20.
-saveDir = 'D:/ProgrammingStuff/GitHub/bing-wallpaper/images/' #in Windows you might put two \\ at the end
-operatingSystem = 'windows' #windows or linux (gnome)
-
-
-
-#Methods for setting a picture as Wallpaper
-def setWindowsWallpaper(picPath):
-    cmd = 'REG ADD \"HKCU\Control Panel\Desktop\" /v Wallpaper /t REG_SZ /d \"%s\" /f' %picPath
-    os.system(cmd)
-    os.system('rundll32.exe user32.dll, UpdatePerUserSystemParameters')
-    return
-
-
-def setGnomeWallpaper(picPath):
-    os.system('gsettings set org.gnome.desktop.background picture-uri file://' + picPath)
-    return
-
+saveDir = '~/Pictures/Bing/' #in Windows you might put two \\ at the end
+operatingSystem = 'linux' #windows or linux (gnome)
 
 #Getting the XML File
 usock = urlopen(
@@ -41,8 +26,7 @@ for element in xmldoc.getElementsByTagName('url'):
 
     #Get Current Date as fileName for the downloaded Picture
     now = datetime.datetime.now()
-    picPath = saveDir + now.strftime('bing_wp_%d-%m-%Y') + '.jpg'
-
+    picPath = saveDir + now.strftime('bing_wp_%Y-%m-%d') + '.jpg'
     #Download and Save the Picture
     #Get a higher resolution by replacing the file name
     urlretrieve(url.replace('_1366x768', '_1920x1200'), picPath)
